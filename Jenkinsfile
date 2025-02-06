@@ -1,11 +1,18 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Build') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'pip3 install -r requirements.txt'
+                sh '''
+                # Create a virtual environment
+                python3 -m venv venv
+                # Activate the virtual environment
+                source venv/bin/activate
+                # Install the dependencies
+                pip install -r requirements.txt
+                '''
             }
         }
 
